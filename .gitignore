@@ -1,0 +1,17 @@
+
+# dependicies
+/node_modules
+/client/node_modules
+/.pnp
+.pnp.js
+/client/.eslintcache
+.eslintcache
+
+
+# testing
+/coverage
+
+
+# production
+/build
+.env
