@@ -8,14 +8,8 @@ const routes = require('./routes');
 
 
 //// mongodb+srv://Admin:<password>@cluster0.pxqpelf.mongodb.net/?retryWrites=true&w=majority
-const mongoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}>@${process.env.DB_HOST}?retryWrites=true&w=majority`;
-mongoose.connect(mongoUri, { 
-  useNewUrlParser: true, 
-  useUnifiedTopology: true, 
-  useCreateIndex: true,
-  useFindAndModify: false 
-})
-
+const mongoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}?retryWrites=true&w=majority`;
+mongoose.connect(mongoUri);
 
 //// body parser
 app.use(express.json());
