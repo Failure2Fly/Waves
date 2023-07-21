@@ -1,5 +1,7 @@
 const { User } = require('../models/user');
+const { Products } = require('../models/products');
 const { use } = require('../routes');
+
 
 const createUser = async(email, password) => { 
   try{
@@ -17,10 +19,12 @@ const createUser = async(email, password) => {
   }
 }
 
+
 const genAuthToken = (user) => { 
   const token = user.generateAuthToken();
   return token;
 }
+
 
 module.exports = {
   createUser,

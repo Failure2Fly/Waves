@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+
 const userSchema = mongoose.Schema({ 
   email: {
     type: String,
@@ -65,6 +66,7 @@ userSchema.pre('save', async function(next) {
   next();
 
 });
+
 
 userSchema.methods.generateAuthToken = function() { 
   let user = this;
