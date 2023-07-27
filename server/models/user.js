@@ -82,5 +82,14 @@ userSchema.statics.emailTaken = async function(email) {
 }
 
 
+userSchema.methods.isPasswordMatch = async function(candidatePassword) { 
+  //// candidatePassword is the unhashed password that the user entered
+
+  const user = this;
+  const isMatch = await bcrypt.compare(candidatePassword, user.password);
+  return isMatch;
+}
+
+
 const User = mongoose.model('User', userSchema);
 module.exports = { User };
