@@ -1,15 +1,24 @@
 const { User } = require('../models/user');
 const httpStatus = require('http-status');
 const { ApiError } = require('../middleware/apiError');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+
+const validateToken = async(token) => { 
+  return jwt.verify(token, process.env.JWT_SECRET);
+}
 
 
 const findUserByEmail = async(email) => { 
   return User.findOne({ email });
 }
 
+
 const findUserById = async(_id) => { 
   return await User.findById(_id);
 }
+
 
 const updateUserProfile = async(req) => { 
   try {
@@ -30,6 +39,7 @@ const updateUserProfile = async(req) => {
     throw error;
   }
 }
+
 
 const updateUserEmail = async(req) => { 
   try {
@@ -58,6 +68,7 @@ const updateUserEmail = async(req) => {
 
 
 module.exports = {
+  validateToken,
   findUserByEmail,
   findUserById,
   updateUserProfile,

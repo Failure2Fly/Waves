@@ -70,8 +70,16 @@ userSchema.pre('save', async function(next) {
 
 userSchema.methods.generateAuthToken = function() { 
   let user = this;
-  const userObj = { sub: user._id.toHexString() };
+  const userObj = { sub: user._id.toHexString(), email:user.eamil };
   const token = jwt.sign(userObj, process.env.JWT_SECRET, { expiresIn: '1d' });
+  return token;
+}
+
+
+userSchema.methods.generateRegisterToken = function() { 
+  let user = this;
+  const userObj = { sub: user._id.toHexString()};
+  const token = jwt.sign(userObj, process.env.JWT_SECRET, { expiresIn: '2h' });
   return token;
 }
 

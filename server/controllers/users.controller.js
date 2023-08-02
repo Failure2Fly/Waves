@@ -1,4 +1,4 @@
-const { userService, authService } = require('../services');
+const { userService, authService, emailService } = require('../services');
 const httpStatus = require('http-status');
 const { ApiError } = require('../middleware/apiError');
 
@@ -31,6 +31,9 @@ const usersController = {
       const token = await authService.genAuthToken(user);
 
       // send email to verify account/ email
+      await emailService.regersterEmail(user.email, user);
+
+
       res.cookie('x-access-token', token) 
       .send({
         user,
@@ -40,7 +43,31 @@ const usersController = {
     } catch (error) {
       next(error);
     }
+  },
+
+  async verifyUserEmail(req, res, next) { 
+    try {
+      const token = await userService.validateToken(req.query.validation);
+      const user = await userService.findUserById(token.sub);
+
+      if (!user) {
+        throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+      }
+      if (user.verified) {
+        throw new ApiError(httpStatus.BAD_REQUEST, 'User already verified');
+      }
+
+      user.verified = true;
+      user.save();
+      res.status(httpStatus.CREATED).send({
+        user
+      });
+
+    } catch (error) {
+      next(error);
+    }
   }
+
 }
 
 

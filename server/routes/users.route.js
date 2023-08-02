@@ -10,6 +10,7 @@ router.route('/profile')
 
 
 router.patch('/email', auth('updateOwn', 'profile'), usersController.updateUserEmail );
+router.get('/verify', usersController.verifyUserEmail);
 
 //// Verify email/account
 
