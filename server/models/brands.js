@@ -9,5 +9,6 @@ const brandSchema = mongoose.Schema({
   }
 });
 
+
 const Brand = mongoose.model('Brand', brandSchema);
 module.exports = { Brand };
